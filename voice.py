@@ -6,6 +6,7 @@ from fuzzywuzzy import fuzz
 import pyttsx3
 import datetime
 import random
+import webbrowser
 
 # настройки
 opts = {
@@ -86,13 +87,13 @@ def execute_cmd(cmd):
 
     elif cmd == 'youtube':
 		#открыть ютуб
-		webbrowser.open('https:/www.youtube.com/')
+	    webbrowser.get(using='C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe').open_new_tab('https://www.youtube.com/?gl=RU&hl=ru')
 
-	elif cmd == 'off':
+    elif cmd == 'off':
 		#выключить компьютер
     	global quit
-    os.system('shutdown /s /f /t 10')
-    quit()
+    	os.system('shutdown /s /f /t 10')
+    	quit()
 
     else:
         print('Команда не распознана, повторите!')
