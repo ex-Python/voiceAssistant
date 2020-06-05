@@ -5,16 +5,20 @@ import speech_recognition as sr
 from fuzzywuzzy import fuzz
 import pyttsx3
 import datetime
+import random
 
 # настройки
 opts = {
-    "alias": ('кеша','кеш','инокентий','иннокентий','кишун','киш',
-              'кишаня','кяш','кяша','кэш','кэша'),
+    "alias": ('луна','люна','уна','луно'),
     "tbr": ('скажи','расскажи','покажи','сколько','произнеси'),
     "cmds": {
         "ctime": ('текущее время','сейчас времени','который час'),
         "radio": ('включи музыку','воспроизведи радио','включи радио'),
-        "stupid1": ('расскажи анекдот','рассмеши меня','ты знаешь анекдоты')
+        "stupid1": ('расскажи анекдот','рассмеши меня','ты знаешь анекдоты'),
+        "open_ggl": ('открой гугл','открой google'),
+        "off": ('выключи компьютер','завершение работы'),
+        "youtube": ('включи ютуб','открой ютуб','открой youtube','включи youtube'),
+        "whatsapp": ('открой ватсап','открой whatsapp')
     }
 }
  
@@ -69,12 +73,27 @@ def execute_cmd(cmd):
    
     elif cmd == 'radio':
         # воспроизвести радио
-        os.system("D:\\Jarvis\\res\\radio_record.m3u")
+        os.startfile("C:\\Program Files (x86)\\PCRadio\\PCRadio.exe")
    
     elif cmd == 'stupid1':
         # рассказать анекдот
-        speak("Мой разработчик не научил меня анекдотам ... Ха ха ха")
-   
+        selectanekdot = ["У меня была одна проблема, поэтому я решил написать программу, которая её решит. Теперь у меня есть 1 проблема, 9 ошибок и 12 предупреждений.", "Такое ощущение, что между первой волной коронавируса и второй, будет всего 1 день - день голосования по поправкам в Конституцию.","Электронное голосование в России - это как в фильме Матрица, только на выбор будет две таблетки одного цвета."]
+        speak(random.choice(selectanekdot))
+
+    elif cmd == 'open_ggl':
+        # открыть гугл
+        os.startfile("C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe")
+
+    elif cmd == 'youtube':
+		#открыть ютуб
+		webbrowser.open('https:/www.youtube.com/')
+
+	elif cmd == 'off':
+		#выключить компьютер
+    	global quit
+    os.system('shutdown /s /f /t 10')
+    quit()
+
     else:
         print('Команда не распознана, повторите!')
  
@@ -92,8 +111,8 @@ voices = speak_engine.getProperty('voices')
 speak_engine.setProperty('voice', voices[0].id)
  
 # forced cmd test 
-speak("Добрый день, повелитель")
-speak("Кеша слушает")
+speak_hello = ["Здравствуйте",]
+speak("Луна слушает")
  
 stop_listening = r.listen_in_background(m, callback)
 while True: time.sleep(0.1) # infinity loop
